@@ -1,0 +1,39 @@
+{
+  "name": "asqs-mdb",
+  "version": "0.1.0",
+  "description": "asqs-mdb is an application for handling Amazon Simple Queue Service (SQS) messages and saving into a MongoDB database.",
+  "keywords": [
+    "amazon",
+    "aws",
+    "sqs",
+    "mongodb"
+  ],
+  "homepage": "http://github.com/cmfatih/asqs-mdb",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cmfatih/asqs-mdb.git"
+  },
+  "bugs": {
+    "url": "http://github.com/cmfatih/asqs-mdb/issues"
+  },
+  "license": "Copyright (c) 2014 Fatih Cetinkaya - All rights reserved.",
+  "private": true,
+  "author": {
+    "name": "cmfatih",
+    "url": "http://github.com/cmfatih"
+  },
+  "contributors": [],
+  "scripts": {
+    "start": "node ./app/index.js -c config/app.json",
+    "test": "node ./app/index.js -c config/test.json"
+  },
+  "engines": [
+    "node >= 0.10.21"
+  ],
+  "dependencies": {
+    "utilex": "0.2.x",
+    "aws-sdk": "2.x",
+    "xml2js": "0.4.x",
+    "mongodb": "latest"
+  }
+}

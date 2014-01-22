@@ -1,0 +1,28 @@
+{
+  "aws": {
+    "config": {
+      "accessKeyId": "ACCESSKEYID",
+      "secretAccessKey": "SECRETACCESSKEY",
+      "region": "REGION"
+    }
+  },
+  "sqs": {
+    "config": {
+      "apiVersion": "2012-11-05"
+    },
+    "receiveMessage": {
+      "QueueUrl": "",
+      "WaitTimeSeconds": 20,
+      "MaxNumberOfMessages": 10
+    },
+    "misc": {
+      "noMessageWaitTimeMS": 60000
+    }
+  },
+  "mongodb": {
+    "config": {
+      "url": "mongodb://localhost:27017/test?w=1&journal=true",
+      "collection": "test"
+    }
+  }
+}

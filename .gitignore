@@ -1,0 +1,20 @@
+# Git Ignore
+
+# Examples
+#
+#   node_modules/
+#   /.tmp-file-*
+#   /tmp-dir/*
+#   /symlink*
+#
+node_modules/
+sources/
+npm-debug.log
+
+logs/*
+!logs/.gitkeep
+!logs/app.log
+
+config/*
+!config/.gitkeep
+!config/app.json
