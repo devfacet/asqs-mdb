@@ -78,7 +78,7 @@ mMongoDB.MongoClient.connect(gConfig.mongodb.config.url, function(err, db) {
                 else {
                   data.Messages[i].error = {
                     "type": "error",
-                    "code": "awssqs-001",
+                    "code": "asqs-mdb-001",
                     "source": "gXMLParser.parseString",
                     "message": "XML parsing error! (" + requestId + " / " + i + " / " + err + ")"
                   };
@@ -90,7 +90,7 @@ mMongoDB.MongoClient.connect(gConfig.mongodb.config.url, function(err, db) {
             else {
               data.Messages[i].error = {
                 "type": "error",
-                "code": "awssqs-002",
+                "code": "asqs-mdb-002",
                 "source": "gSQS.receiveMessage",
                 "message": "Message body error! (" + requestId + " / " + i + ")"
               };
@@ -105,7 +105,7 @@ mMongoDB.MongoClient.connect(gConfig.mongodb.config.url, function(err, db) {
               if(!err) {
                 mUtilex.tidyLog({
                   "type": "success",
-                  "code": "awssqs-003",
+                  "code": "asqs-mdb-003",
                   "source": "gDBCol.insert",
                   "message": "Request (" + requestId + " / " + messagesCnt + ")"
                 }, 'JSON');
@@ -113,7 +113,7 @@ mMongoDB.MongoClient.connect(gConfig.mongodb.config.url, function(err, db) {
               else {
                 mUtilex.tidyLog({
                   "type": "error",
-                  "code": "awssqs-004",
+                  "code": "asqs-mdb-004",
                   "source": "gDBCol.insert",
                   "message": "DB error! (" + err + ")"
                 }, 'JSON');
@@ -125,7 +125,7 @@ mMongoDB.MongoClient.connect(gConfig.mongodb.config.url, function(err, db) {
           else {
             mUtilex.tidyLog({
               "type": "error",
-              "code": "awssqs-005",
+              "code": "asqs-mdb-005",
               "source": "gSQS.receiveMessage",
               "message": "Invalid request Id!"
             }, 'JSON');
@@ -136,9 +136,9 @@ mMongoDB.MongoClient.connect(gConfig.mongodb.config.url, function(err, db) {
         else {
           mUtilex.tidyLog({
             "type": "success",
-            "code": "awssqs-006",
+            "code": "asqs-mdb-006",
             "source": "gSQS.receiveMessage",
-            "message": "No message! (" + requestId + ")"
+            "message": "No more message. (" + requestId + ")"
           }, 'JSON');
 
           setTimeout(function() { gSQSRcvMsg(); }, gConfig.sqs.misc.noMessageWaitTimeMS);
@@ -147,7 +147,7 @@ mMongoDB.MongoClient.connect(gConfig.mongodb.config.url, function(err, db) {
       else {
         mUtilex.tidyLog({
           "type": "error",
-          "code": "awssqs-007",
+          "code": "asqs-mdb-007",
           "source": "gSQS.receiveMessage",
           "message": "SQS error! (" + err + ")"
         }, 'JSON');
