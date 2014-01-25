@@ -4,6 +4,12 @@
 
 ### Installation
 
+For latest published version
+```
+npm install asqs-mdb
+```
+
+or for HEAD version
 ```
 git clone https://github.com/cmfatih/asqs-mdb.git
 ```
@@ -47,5 +53,6 @@ For all notable changes see [CHANGELOG.md](https://github.com/cmfatih/asqs-mdb/b
 
 ### License
 
-Copyright (c) 2014 Fatih Cetinkaya (http://github.com/cmfatih/asqs-mdb) - All rights reserved.  
+Copyright (c) 2014 Fatih Cetinkaya (http://github.com/cmfatih/asqs-mdb)  
+Licensed under The MIT License (MIT)  
 For the full copyright and license information, please view the LICENSE.txt file.
