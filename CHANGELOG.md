@@ -3,6 +3,7 @@
 ### HEAD
 
 ```
+* npm registry link
 ```
 
 ### 0.1.2 (2014-01-25)

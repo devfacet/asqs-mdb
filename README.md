@@ -2,6 +2,8 @@
 
 [asqs-mdb](http://github.com/cmfatih/asqs-mdb) is an application for handling Amazon Simple Queue Service (SQS) messages and saving into a MongoDB database.  
 
+asqs-mdb on [npm registry](http://npmjs.org/package/asqs-mdb)
+
 ### Installation
 
 For latest published version
