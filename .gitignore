@@ -2,13 +2,12 @@
 
 # Examples
 #
-#   node_modules/
 #   /.tmp-file-*
 #   /tmp-dir/*
 #   /symlink*
 #
-node_modules/
 sources/
+node_modules/
 npm-debug.log
 
 logs/*
