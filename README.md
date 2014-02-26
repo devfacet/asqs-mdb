@@ -35,7 +35,7 @@ npm test
 
 #### Example
 ```
-node app/index.js -c config/test.json 2>&1 >> logs/app.log &
+node app/index.js -c config/test.json &>> logs/app.log &
 ```
 
 ### Notes
