@@ -6,12 +6,12 @@ asqs-mdb on [npm registry](http://npmjs.org/package/asqs-mdb)
 
 ### Installation
 
-For latest published version
+For latest release
 ```
 npm install asqs-mdb
 ```
 
-or for HEAD version
+For HEAD
 ```
 git clone https://github.com/cmfatih/asqs-mdb.git
 ```
@@ -26,6 +26,14 @@ Install packages
 npm install
 ```
 
+Permissions
+```
+find ../asqs-mdb/ -type f -exec chmod 644 {} +
+find ../asqs-mdb/ -type d -exec chmod 755 {} +
+chmod 775 ../asqs-mdb/logs/
+chmod 664 ../asqs-mdb/logs/app.log
+```
+
 ### Usage
 
 #### Test
@@ -36,17 +44,6 @@ npm test
 #### Example
 ```
 node app/index.js -c config/test.json &>> logs/app.log &
-```
-
-### Notes
-
-#### Permissions
-
-```
-find ../asqs-mdb/ -type f -exec chmod 644 {} +
-find ../asqs-mdb/ -type d -exec chmod 755 {} +
-chmod 775 ../asqs-mdb/logs/
-chmod 664 ../asqs-mdb/logs/app.log
 ```
 
 ### Changelog
