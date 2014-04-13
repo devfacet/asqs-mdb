@@ -21,17 +21,17 @@ Create a copy of default config file. (the new config file will be ignored by gi
 cp config/app.json config/test.json
 ```
 
-Install packages
-```
-npm install
-```
-
 Permissions
 ```
 find ../asqs-mdb/ -type f -exec chmod 644 {} +
 find ../asqs-mdb/ -type d -exec chmod 755 {} +
 chmod 775 ../asqs-mdb/logs/
 chmod 664 ../asqs-mdb/logs/app.log
+```
+
+Install packages
+```
+npm install
 ```
 
 ### Usage
