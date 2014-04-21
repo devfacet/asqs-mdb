@@ -8,50 +8,41 @@
 /* jslint node: true */
 'use strict';
 
-var mUtilex   = require('utilex'),
-    mAWS      = require('aws-sdk'),
-    mXML2JS   = require('xml2js'),
-    mMongoDB  = require("mongodb")
+var utilex  = require('utilex'),
+    awssdk  = require('aws-sdk'),
+    xml2js  = require('xml2js'),
+    mongodb = require("mongodb")
 ;
 
 // Init vars
-var gConfig,    // config
-    gSQS,       // SQS interface
-    gXMLParser, // XML parser
-    gSQSRcvMsg, // SQS receive message - function
-    gDB,        // db interface
-    gDBCol      // db collection
+var appConfig,  // config
+    xmlParser,  // XML parser
+    sqsIface,   // SQS interface
+    sqsRcvMsg   // SQS receive message - function
 ;
 
-// Init config
-gConfig = mUtilex.tidyConfig().config;
+// config
+appConfig = utilex.tidyConfig().config;
 
-if(mUtilex.tidyConfig().error)                  throw (mUtilex.tidyConfig().error || "Unexpected error! (config)");
-if(!gConfig.aws     || !gConfig.aws.config)     throw 'Invalid AWS configuration! (' + JSON.stringify(gConfig.aws) + ')';
-if(!gConfig.sqs     || !gConfig.sqs.config)     throw 'Invalid SQS configuration! (' + JSON.stringify(gConfig.sqs) + ')';
-if(!gConfig.mongodb || !gConfig.mongodb.config) throw 'Invalid MongoDB configuration! (' + JSON.stringify(gConfig.mongodb) + ')';
+if(utilex.tidyConfig().error)                       throw (utilex.tidyConfig().error || "Unexpected error! (config)");
+if(!appConfig.aws     || !appConfig.aws.config)     throw 'Invalid AWS configuration! (' + JSON.stringify(appConfig.aws) + ')';
+if(!appConfig.sqs     || !appConfig.sqs.config)     throw 'Invalid SQS configuration! (' + JSON.stringify(appConfig.sqs) + ')';
+if(!appConfig.mongodb || !appConfig.mongodb.config) throw 'Invalid MongoDB configuration! (' + JSON.stringify(appConfig.mongodb) + ')';
 
-// Init AWS
-mAWS.config.update(gConfig.aws.config);
+awssdk.config.update(appConfig.aws.config);       // AWS SDK
+sqsIface  = new awssdk.SQS(appConfig.sqs.config); // SQS
+xmlParser = new xml2js.Parser({attrkey: 'A$'});   // XML parser
 
-// Init SQS
-gSQS = new mAWS.SQS(gConfig.sqs.config);
-
-// Init XML parser
-gXMLParser = new mXML2JS.Parser({attrkey: 'A$'});
-
-// Init MongoDB
-mMongoDB.MongoClient.connect(gConfig.mongodb.config.url, function(err, db) {
+// Connect to the db
+mongodb.MongoClient.connect(appConfig.mongodb.config.url, function(err, db) {
   if(err) throw 'DB connection could not be established! (' + err + ')';
 
-  // Init vars
-  gDB     = db;
-  gDBCol  = db.collection(gConfig.mongodb.config.collection);
+  var collection = db.collection(appConfig.mongodb.config.collection);
 
   // Receive Message
-  gSQSRcvMsg = function gSQSRcvMsg() {
+  sqsRcvMsg = function sqsRcvMsg() {
 
-    gSQS.receiveMessage(gConfig.sqs.receiveMessage, function(err, data) {
+    sqsIface.receiveMessage(appConfig.sqs.receiveMessage, function(err, data) {
 
       if(!err) {
 
@@ -62,14 +53,11 @@ mMongoDB.MongoClient.connect(gConfig.mongodb.config.url, function(err, db) {
 
         // Check messages
         if(messagesCnt > 0) {
-
           for(var i = 0; i < messages.length; i++) {
-
-            // Init message
             var body = messages[i].Body || null;
 
             if(body) {
-              gXMLParser.parseString(body, function(err, result) {
+              xmlParser.parseString(body, function(err, result) {
                 if(!err) {
                   data.Messages[i].Body  = result;
                   data.Messages[i].error = null;
@@ -79,11 +67,11 @@ mMongoDB.MongoClient.connect(gConfig.mongodb.config.url, function(err, db) {
                   data.Messages[i].error = {
                     "type": "error",
                     "code": "asqs-mdb-001",
-                    "source": "gXMLParser.parseString",
+                    "source": "parseString",
                     "message": "XML parsing error! (" + requestId + " / " + i + " / " + err + ")"
                   };
 
-                  mUtilex.tidyLog(data.Messages[i].error, 'JSON');
+                  utilex.tidyLog(data.Messages[i].error, 'JSON');
                 }
               });
             }
@@ -91,71 +79,71 @@ mMongoDB.MongoClient.connect(gConfig.mongodb.config.url, function(err, db) {
               data.Messages[i].error = {
                 "type": "error",
                 "code": "asqs-mdb-002",
-                "source": "gSQS.receiveMessage",
+                "source": "receiveMessage",
                 "message": "Message body error! (" + requestId + " / " + i + ")"
               };
 
-              mUtilex.tidyLog(data.Messages[i].error, 'JSON');
+              utilex.tidyLog(data.Messages[i].error, 'JSON');
             }
           }
 
-          // Init request
+          // request
           if(requestId) {
-            gDBCol.insert(data, function(err, docs) {
+            collection.insert(data, function(err) { // (err, docs)
               if(!err) {
-                mUtilex.tidyLog({
+                utilex.tidyLog({
                   "type": "success",
                   "code": "asqs-mdb-003",
-                  "source": "gDBCol.insert",
+                  "source": "insert",
                   "message": "Request (" + requestId + " / " + messagesCnt + ")"
                 }, 'JSON');
               }
               else {
-                mUtilex.tidyLog({
+                utilex.tidyLog({
                   "type": "error",
                   "code": "asqs-mdb-004",
-                  "source": "gDBCol.insert",
+                  "source": "insert",
                   "message": "DB error! (" + err + ")"
                 }, 'JSON');
               }
 
-              gSQSRcvMsg();
+              sqsRcvMsg();
             });
           }
           else {
-            mUtilex.tidyLog({
+            utilex.tidyLog({
               "type": "error",
               "code": "asqs-mdb-005",
-              "source": "gSQS.receiveMessage",
+              "source": "receiveMessage",
               "message": "Invalid request Id!"
             }, 'JSON');
 
-            gSQSRcvMsg();
+            sqsRcvMsg();
           }
         }
         else {
-          mUtilex.tidyLog({
+          utilex.tidyLog({
             "type": "success",
             "code": "asqs-mdb-006",
-            "source": "gSQS.receiveMessage",
+            "source": "receiveMessage",
             "message": "No more message. (" + requestId + ")"
           }, 'JSON');
 
-          setTimeout(function() { gSQSRcvMsg(); }, gConfig.sqs.misc.noMessageWaitTimeMS);
+          setTimeout(function() { sqsRcvMsg(); }, appConfig.sqs.misc.noMessageWaitTimeMS);
         }
       }
       else {
-        mUtilex.tidyLog({
+        utilex.tidyLog({
           "type": "error",
           "code": "asqs-mdb-007",
-          "source": "gSQS.receiveMessage",
+          "source": "receiveMessage",
           "message": "SQS error! (" + err + ")"
         }, 'JSON');
 
-        gSQSRcvMsg();
+        sqsRcvMsg();
       }
     });
   };
 
-  gSQSRcvMsg();
+  sqsRcvMsg();
 });

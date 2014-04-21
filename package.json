@@ -1,6 +1,6 @@
 {
   "name": "asqs-mdb",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "asqs-mdb is an application for handling Amazon Simple Queue Service (SQS) messages and saving into a MongoDB database.",
   "keywords": [
     "amazon",
@@ -27,7 +27,7 @@
   "contributors": [],
   "scripts": {
     "start": "node ./app/index.js -c config/app.json",
-    "test": "node ./app/index.js -c config/test.json"
+    "test": "node ./test/test-all.js"
   },
   "engines": [
     "node >= 0.10.21"

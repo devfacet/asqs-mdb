@@ -1,5 +1,12 @@
 // Init reqs
+/* jslint node: true */
 'use strict';
 
+process.argv.push('-c', 'config/test.json');
+
+var asqsmdb = require('../app/'),
+    utilex  = require('utilex')
+;
+
 // Tests
-console.log('test-all.js');
+utilex.tidyLog('test-all.js');
