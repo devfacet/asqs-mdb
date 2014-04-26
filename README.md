@@ -16,6 +16,7 @@ For HEAD
 ```
 git clone https://github.com/cmfatih/asqs-mdb.git
 ```
+[![Build Status](https://travis-ci.org/cmfatih/asqs-mdb.svg?branch=master)](https://travis-ci.org/cmfatih/asqs-mdb)
 
 Create a copy of default config file and make necessary changes. 
 (the new config file will be ignored by git)
