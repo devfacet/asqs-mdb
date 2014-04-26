@@ -37,5 +37,9 @@
     "aws-sdk": "2.x",
     "xml2js": "0.4.x",
     "mongodb": "1.x"
+  },
+  "devDependencies": {
+    "chai": "*",
+    "mocha": "*"
   }
 }
