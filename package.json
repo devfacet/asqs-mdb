@@ -27,7 +27,7 @@
   "contributors": [],
   "scripts": {
     "start": "node ./app/index.js -c config/app.json",
-    "test": "node ./test/test-all.js"
+    "test": "node ./node_modules/mocha/bin/mocha --timeout 10000 --slow 9000 --reporter list test/test-all.js"
   },
   "engines": [
     "node >= 0.10.21"
