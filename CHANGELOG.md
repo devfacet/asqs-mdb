@@ -5,6 +5,13 @@
 ```
 ```
 
+### 0.1.5 (2014-04-26)
+
+* Add unit test
+* Add npm badge
+* Add Build Status
+* Add .travis.yml
+
 ### 0.1.4 (2014-04-20)
 
 * Misc. updates
