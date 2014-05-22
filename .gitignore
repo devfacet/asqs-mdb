@@ -10,6 +10,9 @@ sources/
 node_modules/
 npm-debug.log
 
+*.heapsnapshot
+.DS_Store
+
 logs/*
 !logs/.gitkeep
 !logs/app.log

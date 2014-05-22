@@ -14,24 +14,21 @@ var utilex  = require('utilex'),
     mongodb = require("mongodb")
 ;
 
-// Init vars
-var appConfig,  // config
-    xmlParser,  // XML parser
-    sqsIface,   // SQS interface
-    sqsRcvMsg   // SQS receive message - function
+var appConfig,
+    xmlParser,
+    sqsIface,  // SQS interface
+    sqsRcvMsg  // SQS receive message - function
 ;
 
-// config
 appConfig = utilex.tidyConfig().config;
-
 if(utilex.tidyConfig().error)                       throw (utilex.tidyConfig().error || "Unexpected error! (config)");
 if(!appConfig.aws     || !appConfig.aws.config)     throw 'Invalid AWS configuration! (' + JSON.stringify(appConfig.aws) + ')';
 if(!appConfig.sqs     || !appConfig.sqs.config)     throw 'Invalid SQS configuration! (' + JSON.stringify(appConfig.sqs) + ')';
 if(!appConfig.mongodb || !appConfig.mongodb.config) throw 'Invalid MongoDB configuration! (' + JSON.stringify(appConfig.mongodb) + ')';
 
-awssdk.config.update(appConfig.aws.config);       // AWS SDK
-sqsIface  = new awssdk.SQS(appConfig.sqs.config); // SQS
-xmlParser = new xml2js.Parser({attrkey: 'A$'});   // XML parser
+awssdk.config.update(appConfig.aws.config);
+sqsIface  = new awssdk.SQS(appConfig.sqs.config);
+xmlParser = new xml2js.Parser({attrkey: 'A$'});
 
 // Connect to the db
 mongodb.MongoClient.connect(appConfig.mongodb.config.url, function(err, db) {
@@ -46,7 +43,6 @@ mongodb.MongoClient.connect(appConfig.mongodb.config.url, function(err, db) {
 
       if(!err) {
 
-        // Init vars
         var requestId   = (data && data.ResponseMetadata && data.ResponseMetadata.RequestId) ? data.ResponseMetadata.RequestId : null;
         var messages    = (data && data.Messages && data.Messages instanceof Array) ? data.Messages : [];
         var messagesCnt = messages.length;
