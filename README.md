@@ -3,8 +3,8 @@
 [asqs-mdb](http://github.com/cmfatih/asqs-mdb) is an application for 
 handling Amazon Simple Queue Service (SQS) messages and saving into a MongoDB database.  
 
-asqs-mdb on [npm registry](http://npmjs.org/package/asqs-mdb)  
-[![NPM](https://nodei.co/npm/asqs-mdb.png?compact=true)](https://nodei.co/npm/asqs-mdb/)
+[![Build Status][travis-image]][travis-url] | [![NPM][npm-image]][npm-url]
+---------- | ----------
 
 ### Installation
 
@@ -17,17 +17,14 @@ For HEAD
 ```
 git clone https://github.com/cmfatih/asqs-mdb.git
 ```
-[![Build Status](https://travis-ci.org/cmfatih/asqs-mdb.svg?branch=master)](https://travis-ci.org/cmfatih/asqs-mdb)
 
-Create a copy of default config file and make necessary changes. 
-(the new config file will be ignored by git)
+Create a copy of the default config file and make necessary changes.
 ```
 cp config/app.json config/test.json
 ```
 
 Permissions
 ```
-find ../asqs-mdb/ -type d -exec chmod 755 {} +
 chmod 775 ../asqs-mdb/logs/
 chmod 664 ../asqs-mdb/logs/app.log
 ```
@@ -66,3 +63,9 @@ For all notable changes see [CHANGELOG.md](https://github.com/cmfatih/asqs-mdb/b
 Copyright (c) 2014 Fatih Cetinkaya (http://github.com/cmfatih/asqs-mdb)  
 Licensed under The MIT License (MIT)  
 For the full copyright and license information, please view the LICENSE.txt file.
+
+[npm-url]: http://npmjs.org/package/asqs-mdb
+[npm-image]: https://badge.fury.io/js/asqs-mdb.png
+
+[travis-url]: https://travis-ci.org/cmfatih/asqs-mdb
+[travis-image]: https://travis-ci.org/cmfatih/asqs-mdb.svg?branch=master
