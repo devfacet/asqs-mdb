@@ -4,21 +4,18 @@
  * For the full copyright and license information, please view the LICENSE.txt file.
  */
 
-// Init reqs
 /* jslint node: true */
 'use strict';
 
 var utilex  = require('utilex'),
     awssdk  = require('aws-sdk'),
     xml2js  = require('xml2js'),
-    mongodb = require("mongodb")
-;
+    mongodb = require("mongodb");
 
 var appConfig,
     xmlParser,
-    sqsIface,  // SQS interface
-    sqsRcvMsg  // SQS receive message - function
-;
+    sqsIface,   // SQS interface
+    sqsRcvMsg;  // SQS receive message - function
 
 appConfig = utilex.tidyConfig().config;
 if(utilex.tidyConfig().error)                       throw (utilex.tidyConfig().error || "Unexpected error! (config)");
