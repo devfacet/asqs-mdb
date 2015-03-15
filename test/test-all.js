@@ -1,7 +1,5 @@
-// Init reqs
 /* jslint node: true */
-/* global describe: false */
-/* global it: false */
+/* global describe: false, it: false */
 'use strict';
 
 process.argv.push('-c', 'config/test.json');
@@ -10,7 +8,6 @@ var utilex = require('utilex');
 
 // Tests
 
-// Test for asqsmdb module
 describe('asqsMDB', function() {
 
   if(!utilex.tidyConfig().error && utilex.tidyConfig().file) {
@@ -23,4 +20,5 @@ describe('asqsMDB', function() {
       done();
     });
   }
+
 });
