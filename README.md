@@ -33,5 +33,5 @@ For the full copyright and license information, please view the LICENSE.txt file
 [npm-url]: http://npmjs.org/package/asqs-mdb
 [npm-image]: https://badge.fury.io/js/asqs-mdb.svg
 
-[travis-url]: https://travis-ci.org/cmfatih/asqs-mdb
-[travis-image]: https://travis-ci.org/cmfatih/asqs-mdb.svg?branch=master
+[travis-url]: https://travis-ci.org/devfacet/asqs-mdb
+[travis-image]: https://travis-ci.org/devfacet/asqs-mdb.svg?branch=master
