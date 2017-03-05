@@ -1,11 +1,11 @@
-## Amazon SQS to MongoDB
+# Amazon SQS to MongoDB
 
 [![NPM][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
 
 Amazon SQS to MongoDB is an application for handling Amazon Simple Queue Service (SQS)
 messages and saving into a MongoDB database.
 
-### Installation
+## Installation
 
 ```
 npm install asqs-mdb
@@ -16,25 +16,22 @@ Create a copy of the default config file and make necessary changes.
 cp config/app.json config/test.json
 ```
 
-### Usage
+## Usage
 
-**Manual execution**
-```
+```bash
 node app/index.js -c config/test.json &>> logs/app.log
+
+# Cron job
+*/5 * * * * node app/index.js -c config/test.json &>> logs/app.log
 ```
 
-**Cron job**
-```
-*/5 * * * * cd asqs-mdb/; node app/index.js -c config/test.json &>> logs/app.log
-```
-
-### License
+## License
 
 Licensed under The MIT License (MIT)  
 For the full copyright and license information, please view the LICENSE.txt file.
 
 [npm-url]: http://npmjs.org/package/asqs-mdb
-[npm-image]: https://badge.fury.io/js/asqs-mdb.png
+[npm-image]: https://badge.fury.io/js/asqs-mdb.svg
 
 [travis-url]: https://travis-ci.org/cmfatih/asqs-mdb
 [travis-image]: https://travis-ci.org/cmfatih/asqs-mdb.svg?branch=master

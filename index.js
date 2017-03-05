@@ -1,6 +1,5 @@
 /*
  * Amazon SQS to MongoDB
- * Copyright (c) 2014 Fatih Cetinkaya (http://github.com/cmfatih/asqs-mdb)
  * For the full copyright and license information, please view the LICENSE.txt file.
  */
 
